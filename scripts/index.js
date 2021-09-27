@@ -1,34 +1,33 @@
-// Code goes here
 
-// $('.li-modal').on('click', function(e){
-//     e.preventDefault();
-//     $('#theModal').modal('show').find('.modal-content').load($(this).attr('href'));
-// });
+var modal = document.getElementsByClassName('modal')[0]
 
+window.addEventListener('click', clickOutside);
 
+function modalWow(id) {
+    var htmlGet = new XMLHttpRequest();
 
-// Get the modal
-var modal = document.getElementById("myModal");
+    htmlGet.open('GET', id, true);
+    htmlGet.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return;
+        document.getElementsByClassName('modal-content')[0].innerHTML= this.responseText;
+    };
+    htmlGet.send();
+    console.log('TEST')
+    openModal()
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
+function openModal() {
+    modal.style.display = 'block';
 }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+function closeModal() {
+    modal.style.display = 'none';
+}
+
+function clickOutside(e) {
+    if(e.target == modal) {
+        modal.style.display = 'none';
     }
 }
